@@ -1,1 +1,1 @@
-New note to test the synchronization. Let's reference [[PyTorch Alpaka]]..github/workflows/update-quartz.yml
+New note to test the synchronization. Let's reference [[PyTorch Alpaka]]
