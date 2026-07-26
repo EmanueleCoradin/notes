@@ -1,1 +1,4 @@
-Welcome to my personal website
+
+---
+title:  Welcome to my personal website
+---
