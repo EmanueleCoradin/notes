@@ -14,6 +14,14 @@ A growing collection of personal research and technical study notes, organized f
 - [[ONNXRuntimeAlpaka]] — ONNX Runtime execution providers, IOBinding and tensor layouts
 - [[TensorRT Inference in CMSSW]] — deployment choices, lean runtime and native executor considerations
 
+
+## TICL and HGCAL reconstruction
+
+- [[TICL Reconstruction Pipeline]] — layer clustering, Tracksters and candidate reconstruction
+- [[Trackster PID and Energy Regression]] — learned classification and energy estimation
+- [[TICL Heterogeneous Inference Design]] — GPU feature extraction and configurable CNN/PFN/DNN execution
+- [[TICL Candidate Inference and Superclustering]] — candidate-stage estimators and learned grouping
+
 ## Research logs
 
 - [[Pixel Track Inference Backend Comparison]] — exploratory PyTorchAlpaka / ONNXRuntimeAlpaka timing comparison
