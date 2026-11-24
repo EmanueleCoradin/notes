@@ -155,6 +155,65 @@ MiniAOD achieves its reduction through several techniques:
 
 This is primarily a reduction in information per event, distinct from skimming, which selects a subset of events. The loss of information is deliberate and generally irreversible.
 
+### What does `slimmed*` mean?
+
+Slimming reduces the information retained within a reconstructed object and its associated products, without introducing a new C++ class. For example, both `selectedPatMuons` and `slimmedMuons` contain `std::vector<pat::Muon>`. The latter is produced by a dedicated slimmer that copies and modifies the input objects.
+
+| Technique | What is reduced |
+| --- | --- |
+| Skimming | Number of events |
+| Object selection | Number of objects within an event or collection |
+| Slimming | Detail retained in individual objects and their associations |
+| Packing | Storage size of retained quantities, sometimes through reduced precision |
+| Dropping | Entire event products |
+
+These techniques can overlap: a slimmer may also reduce numerical precision or selectively retain associated products.
+
+#### Muon slimming
+
+The reference [PATMuonSlimmer configuration](https://github.com/cms-sw/cmssw/blob/CMSSW_13_2_4/PhysicsTools/PatAlgos/python/slimming/slimmedMuons_cfi.py) takes `selectedPatMuons` and produces `slimmedMuons`. Its [C++ implementation](https://github.com/cms-sw/cmssw/blob/CMSSW_13_2_4/PhysicsTools/PatAlgos/plugins/PATMuonSlimmer.cc) copies each input muon before applying the configured transformations.
+
+Examples from CMSSW_13_2_4:
+
+- The main muon kinematics, charge and standard isolation information are retained.
+- The redundant PF four-momentum is removed from PF muons (`dropPfP4 = "1"`), not the main muon four-momentum.
+- Selected calorimeter quantities are stored with reduced mantissa precision (`slimCaloVars = "1"`).
+- Track-extra references are remapped to retained collections where available, and the original-object reference is redirected to the associated packed PF candidate or lost track where applicable.
+- Dedicated high-momentum track fits are embedded for muons with `pt > 100` GeV; the configured selection for saving DT/CSC segments is `pt > 50` GeV.
+
+#### Jet slimming and constituent references
+
+The reference [PATJetSlimmer configuration](https://github.com/cms-sw/cmssw/blob/CMSSW_13_2_4/PhysicsTools/PatAlgos/python/slimming/slimmedJets_cfi.py) takes `selectedPatJets` and produces `slimmedJets`, both collections of `pat::Jet`.
+
+```python
+dropJetVars = cms.string("1"),
+dropDaughters = cms.string("0"),
+rekeyDaughters = cms.string("1"),
+dropTrackRefs = cms.string("1"),
+dropSpecific = cms.string("0"),
+dropTagInfos = cms.string("1"),
+```
+
+In this configuration, jet daughters are retained but their references are rekeyed to the compact packed PF candidate collection. Explicit track references and the configured jet variables and tag-info payloads are dropped. Dropping tag-info payloads does not imply that all stored tagging discriminator values are dropped.
+
+```mermaid
+flowchart TD
+    A["pat::Jet before slimming"] --> B["reco::PFCandidate daughters"]
+    A --> C["PATJetSlimmer"]
+    B --> D["PF candidate packing"]
+    C --> E["pat::Jet after slimming"]
+    D --> F["pat::PackedCandidate daughters"]
+    E --> F
+```
+
+This is particularly useful for jet substructure: retained constituent associations allow access to compact reconstructed constituent kinematics without storing the full original PF reconstruction objects. Reclustering or recomputing observables remains possible within the limitations of the stored inputs.
+
+#### Implications for analysis
+
+The C++ interface is preserved, but the information content is reduced. Methods such as `muon.pt()`, `muon.innerTrack()`, `jet.numberOfDaughters()` and `jet.daughter(i)` remain part of their respective classes. The presence of a method does not guarantee that its underlying information was retained or that a returned reference can be dereferenced. Check reference availability and the production configuration before relying on it.
+
+These are examples from the reference CMSSW_13_2_4 slimming configuration. Era and process modifiers, object-specific settings and the actual production campaign can change the retained information; the precise content of individual PbPb input files has not yet been independently verified.
+
 ## How HiForest uses MiniAOD
 
 HiForest runs within [[Computing/CMSSW|CMSSW]] and reads EDM products through configured input tags. It can also run additional producers before writing its output.
