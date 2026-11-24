@@ -10,6 +10,7 @@ Notes on software, performance, and technical work. Use links to connect impleme
 ## Existing notes
 
 - [[Computing/CMSSW|CMSSW]]
+- [[Computing/INFN Trieste Computing Farm|INFN Trieste Computing Farm]]
 - [[Computing/PyTorch Alpaka|PyTorch Alpaka]]
 
 For dated technical investigations, see [[Research Logs/index|Research Logs]].
