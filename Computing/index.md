@@ -10,6 +10,7 @@ Notes on software, performance, and technical work. Use links to connect impleme
 ## Existing notes
 
 - [[Computing/CMSSW|CMSSW]]
+- [[Computing/CMS MiniAOD|CMS MiniAOD]]
 - [[Computing/HiForest Setup|HiForest Setup]]
 - [[Computing/INFN Trieste Computing Farm|INFN Trieste Computing Farm]]
 - [[Computing/PyTorch Alpaka|PyTorch Alpaka]]
