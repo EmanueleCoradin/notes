@@ -12,7 +12,7 @@ draft: false
 
 # HiForest Setup
 
-HiForest converts CMS MiniAOD into ROOT analysis trees using [[Computing/CMSSW|CMSSW]] producers and analyzers. This setup was tested on the [[Computing/INFN Trieste Computing Farm|INFN Trieste computing farm]] with the 2023 PbPb HiForest branch, an EL9 host and an EL8 CMS container.
+HiForest converts [[Computing/CMS MiniAOD|CMS MiniAOD]] into ROOT analysis trees using [[Computing/CMSSW|CMSSW]] producers and analyzers. This setup was tested on the [[Computing/INFN Trieste Computing Farm|INFN Trieste computing farm]] with the 2023 PbPb HiForest branch, an EL9 host and an EL8 CMS container.
 
 ## One-time installation
 
