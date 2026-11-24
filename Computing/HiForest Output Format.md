@@ -31,7 +31,7 @@ flowchart TD
 
 A HiForest file contains multiple ROOT directories, generally corresponding to CMSSW analyzer labels. These directories contain TTrees with complementary information about the events.
 
-The following schema was observed in the 2023 PbPb example DATA and MC configurations of the `forest_CMSSW_13_2_X` branch, inspected with PyROOT on 2026-11-24.
+The following schema was observed in the 2023 PbPb example DATA and MC configurations of the `CmsHI:forest_CMSSW_13_2_X` branch in CMSSW_13_2_4, inspected with PyROOT on 2026-11-24. It documents the original generic HiForest smoke tests, not the newer Trieste analysis branch. The latter uses CMSSW_13_2_13 and dedicated configurations; its output schema must be checked independently (see [[Computing/HiForest Setup|HiForest Setup]]).
 
 | Tree path | Information | Use in analysis |
 | --- | --- | --- |
