@@ -134,7 +134,7 @@ rootls -t HiForestMiniAOD.root
 
 The SQLite database is required in the job's working directory because the regression configuration uses a relative connection path.
 
-The DATA test processed 20 events and produced `HiForestMiniAOD.root` on 2026-11-24. Remote MiniAOD access was successful. Detailed tree-content validation remains to be done.
+The DATA test processed 20 events and produced `HiForestMiniAOD.root` on 2026-11-24. Remote MiniAOD access was successful. The output structure was subsequently inspected with PyROOT; see [[Computing/HiForest Output Format|HiForest Output Format]].
 
 For MC, use a separate working directory:
 
@@ -145,7 +145,7 @@ set -o pipefail
 cmsRun -n 1 "$CFG_DIR/forest_miniAOD_run3_MC.py" 2>&1 | tee forest_MC.log
 ```
 
-The MC configuration is expected to produce `HiForestMiniAODMC.root`; this test has not yet been validated.
+The MC test also produced `HiForestMiniAODMC.root` with 20 entries in the event trees on 2026-11-24. Both example files were inspected with PyROOT; this establishes the technical workflow, not physics validation.
 
 ### Concurrency
 
