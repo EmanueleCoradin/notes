@@ -1,5 +1,7 @@
 # Notes & explorations
 
+**Website:** [https://emanuelecoradin.github.io/notes-site/](https://emanuelecoradin.github.io/notes-site/)
+
 A personal [Obsidian](https://obsidian.md/) knowledge base for PhD research, physics, computing, and independent interests. The Markdown notes are version-controlled here and rendered as a website by [notes-site](https://github.com/EmanueleCoradin/notes-site) using Quartz.
 
 ## Structure
