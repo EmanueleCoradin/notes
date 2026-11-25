@@ -13,6 +13,7 @@ Notes on software, performance, and technical work. Use links to connect impleme
 - [[Computing/CMS MiniAOD|CMS MiniAOD]]
 - [[Computing/HiForest Setup|HiForest Setup]]
 - [[Computing/HiForest Output Format|HiForest Output Format]]
+- [[Computing/Trieste Z+jet Analysis Workflow|Trieste Z+jet Analysis Workflow]]
 - [[Computing/INFN Trieste Computing Farm|INFN Trieste Computing Farm]]
 - [[Computing/PyTorch Alpaka|PyTorch Alpaka]]
 
