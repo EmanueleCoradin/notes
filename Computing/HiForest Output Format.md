@@ -116,6 +116,47 @@ The following table describes the **input interface expected by the macro** at t
 
 The dedicated dimuon configuration schedules `muonAnalyzer`, but not `ggHiNtuplizer`. Therefore the lepton schema differs from the generic smoke-test configuration described above. For example, the macro reads `nReco`, `recoPt`, `recoEta` and `recoPhi` from the muon tree, rather than the generic EGM branches.
 
+### Analysis workflow
+
+The diagram summarizes the reference implementation at the pinned revision. The foresting stage has already been performed for existing samples. The wrapper scripts invoke the same event-level macro with different samples, weighting phases, kinematic ranges and systematic flags; they do not perform foresting or constitute a downstream plotting stage. For a nominal reduced-sample validation, use the existing auxiliary inputs and invoke the macro directly with a reduced input list.
+
+```mermaid
+flowchart TD
+    A["CMS MiniAOD datasets<br/>PbPb and pp data, signal and background MC"]
+    B["Foresting — cmsRun<br/>forest_miniAOD_run3_DATA_ZMM.py<br/>forest_miniAOD_run3_MC_ZMM.py<br/>forest_miniAOD_run3_MC_ZMM_Gen.py"]
+    C["HiForest DATA and MC on EOS<br/>ROOT files read via XRootD"]
+    D["Input sample list<br/>list_samples.py → samples_root_files.txt"]
+
+    A --> B --> C --> D --> E
+
+    subgraph W["Analysis orchestration"]
+        direction TB
+        W0["do_analyze_all.sh"]
+        W0 --> W1["do_analyze_weights.sh"]
+        W0 --> W2["do_analyze_bkg.sh"]
+        W0 --> W3["do_analyze_syst.sh"]
+    end
+
+    W1 --> E
+    W2 --> E
+    W3 --> E
+
+    E["Event-level ROOT analysis<br/>analyze_HI_TTreeReader_ZMM.C<br/>Z selection, jet corrections, mixed-event subtraction"]
+
+    F["Corrections and auxiliary inputs<br/>JetCorrector.h · JERProvider.h<br/>JetUncertainty.h · CorrectionSF.h<br/>weights_MC/"]
+    M["Minimum-bias library<br/>MixEvSub/do_analyze_Minbias.sh<br/>analyze_MinBias_TTreeReader.C"]
+    F --> E
+    M --> E
+
+    E --> G["Histograms and response matrices<br/>plot/output_*.root · syst_*/"]
+    G --> H["Detector-level plots and comparisons<br/>plot/compare_inclusive_leading.C<br/>pp_vs_PbPb/vs_PbPb.C<br/>pp_vs_PbPb/vs_PbPb_detector.C"]
+    G --> I["Unfolding and final physics results<br/>Downstream workflow to be traced"]
+```
+
+The minimum-bias library is prepared separately and mixed-event subtraction is performed inside the main macro. The weights wrapper derives the reweighting inputs across repeated invocations. The final response matrices provide inputs for unfolding, but the precise downstream unfolding scripts have not yet been established from this checkout. The foresting configuration names illustrate the PbPb dimuon workflow; the exact configuration of each production must be verified separately.
+
+See the [analysis README](https://github.com/cms-ts/cmssw/blob/24818506602796f751e8665cd31aca601e06f1cb/HeavyIonsAnalysis/Configuration/test/analyze/README), [minimum-bias library README](https://github.com/cms-ts/cmssw/blob/24818506602796f751e8665cd31aca601e06f1cb/HeavyIonsAnalysis/Configuration/test/analyze/MixEvSub/README.md) and [comparison README](https://github.com/cms-ts/cmssw/blob/24818506602796f751e8665cd31aca601e06f1cb/HeavyIonsAnalysis/Configuration/test/analyze/pp_vs_PbPb/README).
+
 ### TTree, TChain and TTreeReader
 
 A `TTree` is a column-oriented ROOT dataset. A `TChain` presents trees of the same kind from several files as one logical sequence of entries. The chain is a view of the input data; it does not create a new merged ROOT file.
