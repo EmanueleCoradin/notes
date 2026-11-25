@@ -197,6 +197,8 @@ Initially the two revisions should match, while the local CMSSW paths differ. `h
 
 ## Analysis code and configurations
 
+See [[Computing/Trieste Z+jet Analysis Workflow|Trieste Z+jet Analysis Workflow]] for the processing stages and script relationships.
+
 The [analysis directory](https://github.com/cms-ts/cmssw/tree/24818506602796f751e8665cd31aca601e06f1cb/HeavyIonsAnalysis/Configuration/test/analyze) is accessible through `cd "$HIFOREST_ANALYSIS"`.
 
 | Component | Purpose |
