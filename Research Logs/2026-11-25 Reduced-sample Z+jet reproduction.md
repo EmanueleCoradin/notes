@@ -8,7 +8,7 @@ tags:
   - root
   - reproducibility
 date: 2026-11-25
-draft: true
+draft: false
 ---
 
 # Reduced-sample Z+jet reproduction — 2026-11-25
