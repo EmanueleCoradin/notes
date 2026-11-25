@@ -12,6 +12,9 @@ draft: false
 
 # HiForest Output Format
 
+> [!WARNING] AI-generated content — review pending
+> This page was generated with ChatGPT and has not yet been fully reviewed or validated by the author. Its technical explanations, code examples and diagrams should be checked against the original source code and verified before being relied upon.
+
 HiForest transforms [[Computing/CMS MiniAOD|CMS MiniAOD]] into analysis-oriented ROOT files using [[Computing/CMSSW|CMSSW]] producers and analyzers. See [[Computing/HiForest Setup|HiForest Setup]] for the production environment.
 
 Unlike MiniAOD, which retains typed EDM products such as PAT objects and packed PF candidates, HiForest stores selected analysis quantities in simpler ROOT trees. See [[Computing/CMS MiniAOD|CMS MiniAOD]] for the upstream object model, heavy-ion event content and information retained during slimming.
